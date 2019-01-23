@@ -21,9 +21,20 @@ public class Login {
         driver.findElement(By.name("ctl00$MainContent$txtPassword")).sendKeys("trpass");
         //5. Click login
         driver.findElement(By.name("ctl00$MainContent$btnLogin")).click();
+
         //6. Get Confirmation
+        String message = driver.findElement(By.id("conf_message")).getText();
+        System.out.println("Message: "+message);
+
+        String pageTitle = driver.getTitle();
+        if (pageTitle.equals("\tSDET Training | Account Management")){
+            System.out.println("Page Title test pass.");
+        } else {
+            System.out.println("Page Title test fail.");
+        }
 
         //7. Close browser
+        driver.close();
 
     }
 }
