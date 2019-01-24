@@ -3,6 +3,7 @@ package demos;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class CreateAccount {
 
@@ -21,12 +22,25 @@ public class CreateAccount {
         driver.findElement(By.id("MainContent_txtEmail")).sendKeys("ms@testmail.com");
         driver.findElement(By.xpath("//*[@id=\"MainContent_txtHomePhone\"]")).sendKeys("123987123");
 
+        driver.findElement(By.id("MainContent_Female")).click();
+//        driver.findElement(By.cssSelector("input[name='ctl00$MainContent$Gender'][value='Female']")).click();
+
 //        driver.findElement(By.cssSelector("input[id='MainContent_txtPassword']")).sendKeys("mspass");
 //        driver.findElement(By.cssSelector("input[type='password']")).sendKeys("mspass");
         driver.findElement(By.cssSelector("input[type='password'][id='MainContent_txtPassword']")).sendKeys("mspass");
+        driver.findElement(By.id("MainContent_txtVerifyPassword")).sendKeys("mspass");
+
+        //How to manage the dropdown.
+        new Select(driver.findElement(By.id("MainContent_menuCountry"))).selectByVisibleText("Brazil");
+
+        driver.findElement(By.id("MainContent_checkWeeklyEmail")).click();
+        driver.findElement(By.id("MainContent_btnSubmit")).click();
+
         //4. Get confirmation
+        String conf = driver.findElement(By.id("MainContent_lblTransactionResult")).getText();
+        System.out.println("Confirmation: " + conf);
 
         //5. Close browser
-//        driver.close();
+        driver.close();
     }
 }
