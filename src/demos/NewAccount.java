@@ -5,22 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Objects;
+
 public class NewAccount {
 
     public static void main(String[] args) {
         //Initialize driver
         WebDriver driver;
         driver = utilities.DriverFactory.open("chrome");
-
-        //WebElements definitions
-        WebElement createAccountButtonElement = driver.findElement(By.xpath("//*[@id=\"ctl01\"]/div[3]/div[2]/div/div[2]/a"));
-        WebElement nameElement = driver.findElement(By.id("MainContent_txtFirstName"));
-        WebElement emailElement = driver.findElement(By.id("MainContent_txtEmail"));
-        WebElement phoneElement = driver.findElement(By.id("MainContent_txtHomePhone"));
-        WebElement passwordElement = driver.findElement(By.id("MainContent_txtPassword"));
-        WebElement verifyPasswordElement = driver.findElement(By.id("MainContent_txtVerifyPassword"));
-        WebElement countryElement = driver.findElement(By.id("MainContent_menuCountry"));
-        WebElement submitButtonElement = driver.findElement(By.id("MainContent_btnSubmit"));
+        Objects.requireNonNull(driver).get("http://sdettraining.com/trguitransactions/AccountManagement.aspx");
 
         //Data
         String name = "Mari Sue";
@@ -33,13 +26,19 @@ public class NewAccount {
         String monthlyEmail;
         String occasional;
 
-
-
-        //1. Navigate to Account Management >> Click on Create Account
-        driver.get("http://sdettraining.com/trguitransactions/AccountManagement.aspx");
+        //WebElements definitions
+        WebElement createAccountButtonElement = driver.findElement(By.xpath("//*[@id=\"ctl01\"]/div[3]/div[2]/div/div[2]/a"));
         createAccountButtonElement.click();
 
-        //2. Fill out the form
+        WebElement nameElement = driver.findElement(By.id("MainContent_txtFirstName"));
+        WebElement emailElement = driver.findElement(By.id("MainContent_txtEmail"));
+        WebElement phoneElement = driver.findElement(By.id("MainContent_txtHomePhone"));
+        WebElement passwordElement = driver.findElement(By.id("MainContent_txtPassword"));
+        WebElement verifyPasswordElement = driver.findElement(By.id("MainContent_txtVerifyPassword"));
+        WebElement countryElement = driver.findElement(By.id("MainContent_menuCountry"));
+        WebElement submitButtonElement = driver.findElement(By.id("MainContent_btnSubmit"));
+
+        //Fill out the form
         nameElement.sendKeys(name);
         emailElement.sendKeys(email);
         phoneElement.sendKeys(phoneNumber);
@@ -55,7 +54,7 @@ public class NewAccount {
         //Submit the form
         submitButtonElement.click();
 
-        //3. Get confirmation & close browser
+        //Get confirmation & close browser
         String conf = driver.findElement(By.id("MainContent_lblTransactionResult")).getText();
         System.out.println("Confirmation: " + conf);
 //        driver.close();
